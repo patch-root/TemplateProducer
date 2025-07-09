@@ -1,0 +1,31 @@
+name: Sync Template to patch-root/template
+
+on:
+  push:
+    paths:
+      - 'blueprints/starter/**'
+      - '.github/workflows/sync-template.yml'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Prepare and push template to target repo
+        run: |
+          mkdir template
+          cp -R blueprints/starter/. template/
+
+          cd template
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git remote add origin https://x-access-token:${{ secrets.TEMPLATE_REPO_TOKEN }}@github.com/patch-root/template.git
+          git add .
+          git commit -m "Auto-sync from TemplateProducer/blueprints/starter"
+          git branch -M main
+          git push --force origin main
