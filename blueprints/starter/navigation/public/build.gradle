@@ -1,0 +1,87 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
+plugins {
+    alias(libs.plugins.appPlatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinMultiplatform)
+}
+
+appPlatform {
+    enableComposeUi true
+    enableModuleStructure true
+    enableKotlinInject true
+    enableMoleculePresenters true
+}
+
+kotlin {
+    androidTarget {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+    }
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    targets.withType(KotlinNativeTarget).configureEach { target ->
+        target.binaries.framework {
+            baseName = project.name.replace("-", "").capitalize()
+        }
+    }
+
+    wasmJs {
+        binaries.executable()
+
+        browser {
+            outputModuleName = project.name.replace("-", "")
+            commonWebpackConfig {
+                outputFileName = "${project.name}.js"
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                // Shared Kotlin dependencies go here
+            }
+        }
+
+        androidMain {
+            dependencies {
+                // Android-specific dependencies go here
+            }
+        }
+
+        iosX64Main {}
+        iosArm64Main {}
+        iosSimulatorArm64Main {}
+
+        wasmJsMain {}
+    }
+}
+
+android {
+    namespace = "software.amazon.app.platform.template.navigation"
+    compileSdk = libs.versions.android.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk = libs.versions.android.minSdk.get().toInteger()
+        targetSdk = libs.versions.android.targetSdk.get().toInteger()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+        }
+    }
+
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+}
