@@ -1,13 +1,13 @@
 import TemplateApp
 import SwiftUI
 
-class AppDelegate: NSObject, UIApplicationDelegate, RootScopeProvider {
+class AppDelegate: NSObject, UIApplicationDelegate, PublicRootScopeProvider {
 
     private let templateApplication: Application = Application()
 
-    var rootScope: Scope {
+    var rootScope: PublicScope {
         get {
-            demoApplication.rootScope
+            templateApplication.rootScope
         }
     }
 

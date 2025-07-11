@@ -30,7 +30,6 @@ kotlin {
     targets.withType(KotlinNativeTarget).configureEach {
         binaries.framework {
             baseName = "TemplateApp"
-            isStatic = true
         }
     }
 

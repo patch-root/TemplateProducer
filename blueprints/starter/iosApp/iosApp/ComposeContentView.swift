@@ -3,9 +3,9 @@ import SwiftUI
 import TemplateApp
 
 struct ComposeView: UIViewControllerRepresentable {
-    private var rootScopeProvider: RootScopeProvider
+    private var rootScopeProvider: PublicRootScopeProvider
 
-    init(rootScopeProvider: RootScopeProvider) {
+    init(rootScopeProvider: PublicRootScopeProvider) {
         self.rootScopeProvider = rootScopeProvider
     }
 
@@ -17,9 +17,9 @@ struct ComposeView: UIViewControllerRepresentable {
 }
 
 struct ComposeContentView: View {
-    var rootScopeProvider: RootScopeProvider
+    var rootScopeProvider: PublicRootScopeProvider
 
-    init(rootScopeProvider: RootScopeProvider) {
+    init(rootScopeProvider: PublicRootScopeProvider) {
         self.rootScopeProvider = rootScopeProvider
     }
 

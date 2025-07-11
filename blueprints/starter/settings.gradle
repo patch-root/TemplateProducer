@@ -12,6 +12,8 @@ dependencyResolutionManagement {
     }
 }
 
+rootProject.name = 'Template'
+
 include ':app'
 include ':navigation:impl'
 include ':navigation:public'
