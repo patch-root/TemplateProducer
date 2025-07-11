@@ -33,9 +33,6 @@ class NavigationDetailPresenterImpl(
 //        )
 //    }
 
-    /**
-     * Tested and works on ios / android / wasm.
-     */
     @Composable
     override fun present(input: Unit): Model {
         val flow = exampleRepository.exampleStateFlow
