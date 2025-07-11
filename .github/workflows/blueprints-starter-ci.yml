@@ -1,0 +1,43 @@
+name: Build Starter Blueprint (Android + iOS + WASM)
+
+on:
+  push:
+    paths:
+      - 'blueprints/starter/**'
+  pull_request:
+    paths:
+      - 'blueprints/starter/**'
+
+jobs:
+  build-starter-app:
+    name: Build Starter App (Android, iOS, WASM)
+    runs-on: macos-latest  # Required for iOS builds
+
+    defaults:
+      run:
+        working-directory: blueprints/starter
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Kotlin Native Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan
+
+      - name: Build Android Target
+        run: ./gradlew compileDebugKotlinAndroid
+
+      - name: Build iOS (Simulator ARM64)
+        run: ./gradlew linkDebugFrameworkIosSimulatorArm64
+
+      - name: Build WASM Target
+        run: ./gradlew compileProductionExecutableKotlinWasmJs
