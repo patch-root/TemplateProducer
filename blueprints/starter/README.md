@@ -19,13 +19,13 @@ This template demonstrates:
 - `ExampleRepository`: A simple `StateFlow`-based repository that emits data
 - `ExampleValueGenerator`: A scoped class that updates the repository with random values every 3 seconds
 - `NavigationHeaderPresenter` and `NavigationDetailPresenter`: Molecule presenters driving the top bar and content UI
-- `NavigationDetailRenderer`: A ComposeRenderer showing example state
+- `NavigationHeaderRenderer` and `NavigationDetailRenderer`: A ComposeRenderer showing example state
 
 ## 📦 Modules
 
 - `:app` – Main app entrypoint using Compose + App Platform
-- `:core`, `:navigation`, `:login`, etc. – Example feature and infrastructure modules
-- Structured for scalability and separation of concerns
+- `:templates` - Main module for templates and the entry point into the application
+- `:navigation` – Example feature module
 
 ## 🧪 Running the App
 
@@ -41,19 +41,20 @@ This template demonstrates:
 ./gradlew :app:wasmJsBrowserDevelopmentRun
 ```
 
+### iOS
+
+#### Option 1: Run via Xcode (Recommended)
+
+1. Open the Xcode project:
+   ```bash
+   open iosApp/iosApp.xcodeproj
+   ```
+
+2. Select a simulator and run the app (`Cmd + R`)
+
+> 💡 The required Kotlin Multiplatform framework will be built automatically as part of the Xcode build process (`./gradlew :app:embedAndSignAppleFrameworkForXcode`).
+
 Then open the browser link shown in the terminal.
-
-> 📝 Release WASM build:
-> Run `./gradlew :app:wasmJsBrowserDistribution` and serve `build/dist/wasmJs/productionExecutable` with `npx http-server`.
-
-## 🧰 Requirements
-
-- JDK 17+
-- Kotlin 2.0+
-- Android Gradle Plugin 8.2+
-- Gradle 8.0+
-- Node.js (for WASM builds)
-- Xcode (for iOS builds)
 
 ## 🔧 Configuration
 
@@ -62,14 +63,6 @@ You can modify app behavior by editing:
 - `gradle.properties` – JVM and native memory settings
 - `libs.versions.toml` – Centralized dependency version catalog
 - `app/build.gradle` – Platform-specific targets and UI modules
-
-## 🧪 Testing
-
-This template includes support for:
-
-- `:desktopTest`, `:androidInstrumentedTest`
-- Composable robot tests (optional)
-- Dependency-injected test environments using App Platform scopes
 
 ## 🤝 Contributing
 

@@ -22,6 +22,7 @@ class ExampleRepositoryImpl : ExampleRepository {
     override val exampleStateFlow: StateFlow<Int> = _exampleStateFlow.asStateFlow()
 
     override fun setExampleFlowValue(value: Int) {
+        println("value: $value")
         _exampleStateFlow.value = value
     }
 }

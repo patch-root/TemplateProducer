@@ -32,6 +32,7 @@ class ExampleValueGenerator(
         scope.launch {
             while (true) {
                 val random = (1..100).random()
+                println("random: $random")
                 exampleRepository.setExampleFlowValue(random)
                 delay(3000L)
             }

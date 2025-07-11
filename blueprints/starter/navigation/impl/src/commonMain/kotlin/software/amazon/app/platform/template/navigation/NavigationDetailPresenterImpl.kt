@@ -17,18 +17,45 @@ import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
 class NavigationDetailPresenterImpl(
     private val exampleRepository: ExampleRepository,
 ) : NavigationDetailPresenter {
+//    This is what I wanted to do, but looks like there is a bug with ios and collectAsState
+//    @Composable
+//    override fun present(input: Unit): Model {
+//        val exampleValue by exampleRepository.exampleStateFlow.collectAsState()
+//        var exampleCount by remember { mutableStateOf(0) }
+//
+//        LaunchedEffect(exampleValue) {
+//            exampleCount++
+//        }
+//
+//        return Model(
+//            exampleValue = exampleValue,
+//            exampleCount = exampleCount,
+//        )
+//    }
+
+    /**
+     * Tested and works on ios / android / wasm.
+     */
     @Composable
     override fun present(input: Unit): Model {
-        val exampleValue by exampleRepository.exampleStateFlow.collectAsState()
-        var exampleCount by remember { mutableStateOf(0) }
+        val flow = exampleRepository.exampleStateFlow
+        val exampleValueState = remember { mutableStateOf(0) }
+        val countState = remember { mutableStateOf(0) }
 
-        LaunchedEffect(exampleValue) {
-            exampleCount++
+        LaunchedEffect(Unit) {
+            flow.collect { newValue ->
+                println("Received newValue: $newValue")
+                if (newValue != exampleValueState.value) {
+                    exampleValueState.value = newValue
+                    countState.value++
+                    println("Updated count: ${countState.value}")
+                }
+            }
         }
 
         return Model(
-            exampleValue = exampleValue,
-            exampleCount = exampleCount,
+            exampleValue = exampleValueState.value,
+            exampleCount = countState.value
         )
     }
 }
