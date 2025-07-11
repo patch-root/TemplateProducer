@@ -12,10 +12,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = 'Template'
+rootProject.name = "Template"
 
-include ':app'
-include ':navigation:impl'
-include ':navigation:public'
-include ':templates:impl'
-include ':templates:public'
+include(":app")
+include(":navigation:impl")
+include(":navigation:public")
+include(":templates:impl")
+include(":templates:public")
