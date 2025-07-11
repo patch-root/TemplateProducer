@@ -85,3 +85,7 @@ android {
         }
     }
 }
+
+dependencies {
+    commonMainImplementation libs.kotlinx.coroutines.core
+}

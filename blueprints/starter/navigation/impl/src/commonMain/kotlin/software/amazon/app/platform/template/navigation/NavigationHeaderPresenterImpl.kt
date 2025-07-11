@@ -11,6 +11,8 @@ import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
 class NavigationHeaderPresenterImpl() : NavigationHeaderPresenter {
     @Composable
     override fun present(input: Unit): Model {
-        return Model(true)
+        return Model(
+            exampleBoolean = true
+        )
     }
 }

@@ -29,7 +29,8 @@ kotlin {
 
     targets.withType(KotlinNativeTarget).configureEach {
         binaries.framework {
-            baseName = "template"
+            baseName = "TemplateApp"
+            isStatic = true
         }
     }
 
@@ -79,24 +80,3 @@ dependencies {
 
     androidMainImplementation libs.androidx.activity.compose
 }
-
-//commonMain.dependencies {
-//    implementation(libs.androidx.lifecycle.viewmodel)
-//    implementation(libs.androidx.lifecycle.runtime.compose)
-//    implementation(libs.androidx.navigation.compose)
-//
-//    implementation(project(":core:public"))
-//    implementation(project(":home:public"))
-//    implementation(project(":login:impl"))
-//    implementation(project(":login:public"))
-//    implementation(project(":navigation:impl"))
-//    implementation(project(":navigation:public"))
-//    implementation(project(":templates:impl"))
-//    implementation(project(":templates:public"))
-//    implementation(project(":user:impl"))
-//    implementation(project(":user:public"))
-//
-//}
-//androidMain.dependencies {
-//    implementation(libs.androidx.activity.compose)
-//}
